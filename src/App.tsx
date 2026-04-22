@@ -8,6 +8,8 @@ import AdminRoute from "@/components/auth/AdminRoute";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import SiteLayout from "@/components/layout/SiteLayout";
 import { ForgotPasswordPage, LoginPage, RegisterPage, ResetPasswordPage } from "./pages/AuthPages";
+import AdminDetailPage from "./pages/AdminDetailPage";
+import AdminListPage from "./pages/AdminListPage";
 import DashboardPage from "./pages/DashboardPage";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -41,7 +43,8 @@ const App = () => (
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
             <Route path="/profiel" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-            <Route path="/admin" element={<AdminRoute><PlaceholderPage title="Admin" /></AdminRoute>} />
+            <Route path="/admin" element={<AdminRoute><AdminListPage /></AdminRoute>} />
+            <Route path="/admin/klanten/:id" element={<AdminRoute><AdminDetailPage /></AdminRoute>} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

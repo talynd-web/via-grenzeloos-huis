@@ -12,9 +12,13 @@ const navItems = [
   { to: "/quiz", label: "Oriëntatie" },
 ];
 
+type NavigationItem = { to: string; label: string; admin?: boolean };
+
 const SiteLayout = () => {
-  const { user, signOut } = useAuth();
-  const visibleNavItems = user ? [...navItems, { to: "/dashboard", label: "Dashboard" }] : [...navItems, { to: "/login", label: "Login" }];
+  const { user, role, signOut } = useAuth();
+  const visibleNavItems: NavigationItem[] = user
+    ? [...navItems, { to: "/dashboard", label: "Dashboard" }, ...(role === "admin" ? [{ to: "/admin", label: "Admin", admin: true }] : [])]
+    : [...navItems, { to: "/login", label: "Login" }];
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -34,8 +38,8 @@ const SiteLayout = () => {
               <NavLink
                 key={item.to}
                 to={item.to}
-                className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                activeClassName="text-primary"
+                className={item.admin ? "text-sm font-semibold text-accent transition-colors hover:text-primary" : "text-sm text-muted-foreground transition-colors hover:text-primary"}
+                activeClassName={item.admin ? "text-primary" : "text-primary"}
               >
                 {item.label}
               </NavLink>
@@ -74,7 +78,7 @@ const SiteLayout = () => {
                     <SheetClose asChild key={item.to}>
                       <NavLink
                         to={item.to}
-                        className="rounded-sm px-3 py-3 text-base font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
+                        className={item.admin ? "rounded-sm px-3 py-3 text-base font-semibold text-accent transition-colors hover:bg-muted hover:text-primary" : "rounded-sm px-3 py-3 text-base font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-primary"}
                         activeClassName="bg-muted text-primary"
                       >
                         {item.label}
