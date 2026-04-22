@@ -17,10 +17,10 @@ const markets = [
 ];
 
 const steps = [
-  { title: "Oriënteren", icon: Compass },
-  { title: "Markt kiezen", icon: MapPinned },
-  { title: "Dossier opbouwen", icon: FileCheck2 },
-  { title: "Begeleid beslissen", icon: Handshake },
+  { title: "Kennismaking & analyse", icon: Compass },
+  { title: "Selectie & advies", icon: MapPinned },
+  { title: "Introductie & begeleiding", icon: FileCheck2 },
+  { title: "Vervolg & ondersteuning", icon: Handshake },
 ];
 
 const Index = () => {

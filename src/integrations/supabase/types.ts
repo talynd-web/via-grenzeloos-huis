@@ -14,14 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      documents: {
+        Row: {
+          client_id: string
+          file_path: string
+          filename: string
+          id: string
+          uploaded_at: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          client_id: string
+          file_path: string
+          filename: string
+          id?: string
+          uploaded_at?: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          client_id?: string
+          file_path?: string
+          filename?: string
+          id?: string
+          uploaded_at?: string
+          uploaded_by?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
           created_at: string
           full_name: string | null
           id: string
+          markets: string[]
+          next_action: string | null
+          next_action_date: string | null
           phone: string | null
-          preferred_market: string | null
+          quiz_data: Json | null
+          traject_stage: number | null
           updated_at: string
           user_id: string
         }
@@ -30,8 +61,12 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id?: string
+          markets?: string[]
+          next_action?: string | null
+          next_action_date?: string | null
           phone?: string | null
-          preferred_market?: string | null
+          quiz_data?: Json | null
+          traject_stage?: number | null
           updated_at?: string
           user_id: string
         }
@@ -40,8 +75,12 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id?: string
+          markets?: string[]
+          next_action?: string | null
+          next_action_date?: string | null
           phone?: string | null
-          preferred_market?: string | null
+          quiz_data?: Json | null
+          traject_stage?: number | null
           updated_at?: string
           user_id?: string
         }
@@ -82,7 +121,7 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "user"
+      app_role: "prospect" | "client" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -210,7 +249,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "user"],
+      app_role: ["prospect", "client", "admin"],
     },
   },
 } as const
