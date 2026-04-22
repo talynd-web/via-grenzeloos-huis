@@ -87,7 +87,7 @@ const SiteLayout = () => {
             <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.14em] text-accent">Openingstijden</h2>
             <p className="flex gap-3 text-sm leading-6 text-primary-foreground/80">
               <CalendarDays className="mt-1 h-4 w-4 shrink-0 text-accent" />
-              <span>Maandag t/m vrijdag<br />09:00 – 17:30</span>
+              <span>Maandag t/m vrijdag<br />09:00 – 18:00<br />Zaterdag<br />09:00 – 12:00<br />Zondag<br />Alleen op afspraak</span>
             </p>
           </div>
           <div>
