@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { clearPendingQuizAnswers, getPendingQuizAnswers, saveQuizProfile } from "@/lib/quiz-storage";
 
 type AuthMode = "login" | "register" | "forgot" | "reset";
 
@@ -49,8 +50,13 @@ const AuthForm = ({ mode }: AuthFormProps) => {
 
     try {
       if (mode === "login") {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
+        const pendingAnswers = getPendingQuizAnswers();
+        if (pendingAnswers && data.user) {
+          await saveQuizProfile(data.user.id, pendingAnswers);
+          clearPendingQuizAnswers();
+        }
         toast({ title: "Je bent ingelogd." });
         navigate("/dashboard");
       }
