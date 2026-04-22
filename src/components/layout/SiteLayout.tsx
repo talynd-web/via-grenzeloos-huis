@@ -3,6 +3,7 @@ import { CalendarDays, LogOut, Mail, MapPin, Menu, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { NavLink } from "@/components/NavLink";
+import { PLAN_GESPREK_URL } from "@/lib/links";
 
 const navItems = [
   { to: "/spanje", label: "Spanje" },
@@ -52,7 +53,9 @@ const SiteLayout = () => {
               </>
             ) : (
               <Button asChild className="hidden sm:inline-flex">
-                <Link to="/plan-gesprek">Plan gesprek</Link>
+                <a href={PLAN_GESPREK_URL} target="_blank" rel="noreferrer">
+                  Plan gesprek
+                </a>
               </Button>
             )}
             <Button asChild size="icon" variant="outline" className="md:hidden" aria-label="Open navigatie">
