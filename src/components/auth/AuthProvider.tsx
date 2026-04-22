@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
+import { clearPendingQuizAnswers, getPendingQuizAnswers, saveQuizProfile } from "@/lib/quiz-storage";
 
 type AuthContextValue = {
   session: Session | null;
@@ -28,6 +29,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     return () => listener.subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (!session?.user) return;
+
+    const pendingAnswers = getPendingQuizAnswers();
+    if (!pendingAnswers) return;
+
+    saveQuizProfile(session.user.id, pendingAnswers)
+      .then(clearPendingQuizAnswers)
+      .catch(() => undefined);
+  }, [session?.user]);
 
   const signOut = async () => {
     await supabase.auth.signOut();
