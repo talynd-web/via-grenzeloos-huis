@@ -1,6 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
-import { CalendarDays, Mail, MapPin, Menu, Phone } from "lucide-react";
+import { CalendarDays, LogOut, Mail, MapPin, Menu, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/components/auth/AuthProvider";
 import { NavLink } from "@/components/NavLink";
 
 const navItems = [
@@ -11,6 +12,8 @@ const navItems = [
 ];
 
 const SiteLayout = () => {
+  const { user, signOut } = useAuth();
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/95 backdrop-blur">
@@ -38,9 +41,20 @@ const SiteLayout = () => {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Button asChild className="hidden sm:inline-flex">
-              <Link to="/plan-gesprek">Plan gesprek</Link>
-            </Button>
+            {user ? (
+              <>
+                <Button asChild variant="ghost" className="hidden sm:inline-flex">
+                  <Link to="/profiel">Profiel</Link>
+                </Button>
+                <Button variant="outline" size="icon" onClick={signOut} aria-label="Uitloggen">
+                  <LogOut />
+                </Button>
+              </>
+            ) : (
+              <Button asChild className="hidden sm:inline-flex">
+                <Link to="/plan-gesprek">Plan gesprek</Link>
+              </Button>
+            )}
             <Button asChild size="icon" variant="outline" className="md:hidden" aria-label="Open navigatie">
               <Link to="/plan-gesprek">
                 <Menu />
