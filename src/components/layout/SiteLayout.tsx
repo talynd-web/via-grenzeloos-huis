@@ -10,11 +10,11 @@ const navItems = [
   { to: "/spanje", label: "Spanje" },
   { to: "/dubai", label: "Dubai" },
   { to: "/quiz", label: "Oriëntatie" },
-  { to: "/login", label: "Login" },
 ];
 
 const SiteLayout = () => {
   const { user, signOut } = useAuth();
+  const visibleNavItems = user ? [...navItems, { to: "/dashboard", label: "Dashboard" }] : [...navItems, { to: "/login", label: "Login" }];
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -30,7 +30,7 @@ const SiteLayout = () => {
           </Link>
 
           <nav className="hidden items-center gap-7 md:flex" aria-label="Hoofdnavigatie">
-            {navItems.map((item) => (
+            {visibleNavItems.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
@@ -70,7 +70,7 @@ const SiteLayout = () => {
                   <SheetTitle>Menu</SheetTitle>
                 </SheetHeader>
                 <nav className="mt-6 flex flex-col gap-1" aria-label="Mobiele navigatie">
-                  {navItems.map((item) => (
+                  {visibleNavItems.map((item) => (
                     <SheetClose asChild key={item.to}>
                       <NavLink
                         to={item.to}

@@ -4,11 +4,15 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/components/auth/AuthProvider";
+import AdminRoute from "@/components/auth/AdminRoute";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import SiteLayout from "@/components/layout/SiteLayout";
 import { ForgotPasswordPage, LoginPage, RegisterPage, ResetPasswordPage } from "./pages/AuthPages";
+import DashboardPage from "./pages/DashboardPage";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import PlaceholderPage from "./pages/PlaceholderPage";
+import ProfilePage from "./pages/ProfilePage";
 import QuizPage from "./pages/QuizPage";
 import QuizResultPage from "./pages/QuizResultPage";
 import SpanjePage from "./pages/SpanjePage";
@@ -35,9 +39,9 @@ const App = () => (
             <Route path="/registreer" element={<RegisterPage />} />
             <Route path="/wachtwoord-vergeten" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
-            <Route path="/dashboard" element={<PlaceholderPage title="Dashboard" />} />
-            <Route path="/profiel" element={<PlaceholderPage title="Profiel" />} />
-            <Route path="/admin" element={<PlaceholderPage title="Admin" />} />
+            <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+            <Route path="/profiel" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+            <Route path="/admin" element={<AdminRoute><PlaceholderPage title="Admin" /></AdminRoute>} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

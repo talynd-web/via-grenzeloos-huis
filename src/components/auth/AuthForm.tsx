@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,6 +38,7 @@ const copy = {
 
 const AuthForm = ({ mode }: AuthFormProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
@@ -58,7 +59,7 @@ const AuthForm = ({ mode }: AuthFormProps) => {
           clearPendingQuizAnswers();
         }
         toast({ title: "Je bent ingelogd." });
-        navigate("/dashboard");
+        navigate((location.state as { returnTo?: string } | null)?.returnTo ?? "/dashboard");
       }
 
       if (mode === "register") {
