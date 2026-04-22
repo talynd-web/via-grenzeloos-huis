@@ -9,6 +9,8 @@ import { ForgotPasswordPage, LoginPage, RegisterPage, ResetPasswordPage } from "
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import PlaceholderPage from "./pages/PlaceholderPage";
+import QuizPage from "./pages/QuizPage";
+import QuizResultPage from "./pages/QuizResultPage";
 
 const queryClient = new QueryClient();
 
@@ -22,8 +24,8 @@ const App = () => (
         <Routes>
           <Route element={<SiteLayout />}>
             <Route path="/" element={<Index />} />
-            <Route path="/quiz" element={<PlaceholderPage title="Oriëntatie" />} />
-            <Route path="/quiz/resultaat" element={<PlaceholderPage title="Quiz resultaat" />} />
+            <Route path="/quiz" element={<QuizPage />} />
+            <Route path="/quiz/resultaat" element={<QuizResultPage />} />
             <Route path="/spanje" element={<PlaceholderPage title="Spanje" />} />
             <Route path="/dubai" element={<PlaceholderPage title="Dubai" />} />
             <Route path="/plan-gesprek" element={<PlaceholderPage title="Plan gesprek" />} />
