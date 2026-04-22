@@ -12,9 +12,11 @@ const navItems = [
   { to: "/quiz", label: "Oriëntatie" },
 ];
 
+type NavigationItem = { to: string; label: string; admin?: boolean };
+
 const SiteLayout = () => {
   const { user, role, signOut } = useAuth();
-  const visibleNavItems = user
+  const visibleNavItems: NavigationItem[] = user
     ? [...navItems, { to: "/dashboard", label: "Dashboard" }, ...(role === "admin" ? [{ to: "/admin", label: "Admin", admin: true }] : [])]
     : [...navItems, { to: "/login", label: "Login" }];
 
