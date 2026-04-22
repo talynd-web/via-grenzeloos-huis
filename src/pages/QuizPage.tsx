@@ -1,6 +1,6 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -9,8 +9,9 @@ import { QUIZ_STORAGE_KEY, quizQuestions, type QuizAnswers } from "@/lib/quiz-ma
 
 const QuizPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState<Partial<QuizAnswers>>({});
+  const [answers, setAnswers] = useState<Partial<QuizAnswers>>(() => (location.state as { answers?: QuizAnswers } | null)?.answers ?? {});
   const currentQuestion = quizQuestions[step];
   const currentAnswer = answers[currentQuestion.id];
   const progress = ((step + 1) / quizQuestions.length) * 100;
