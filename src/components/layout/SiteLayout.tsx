@@ -1,6 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import { CalendarDays, LogOut, Mail, MapPin, Menu, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { NavLink } from "@/components/NavLink";
 import { PLAN_GESPREK_URL } from "@/lib/links";
@@ -58,11 +59,40 @@ const SiteLayout = () => {
                 </a>
               </Button>
             )}
-            <Button asChild size="icon" variant="outline" className="md:hidden" aria-label="Open navigatie">
-              <Link to="/plan-gesprek">
-                <Menu />
-              </Link>
-            </Button>
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button size="icon" variant="outline" className="md:hidden" aria-label="Open navigatie">
+                  <Menu />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="flex w-[min(22rem,calc(100vw-2rem))] flex-col">
+                <SheetHeader className="text-left">
+                  <SheetTitle>Menu</SheetTitle>
+                </SheetHeader>
+                <nav className="mt-6 flex flex-col gap-1" aria-label="Mobiele navigatie">
+                  {navItems.map((item) => (
+                    <SheetClose asChild key={item.to}>
+                      <NavLink
+                        to={item.to}
+                        className="rounded-sm px-3 py-3 text-base font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
+                        activeClassName="bg-muted text-primary"
+                      >
+                        {item.label}
+                      </NavLink>
+                    </SheetClose>
+                  ))}
+                </nav>
+                <SheetFooter className="mt-auto pt-6">
+                  <SheetClose asChild>
+                    <Button asChild className="w-full">
+                      <a href={PLAN_GESPREK_URL} target="_blank" rel="noreferrer">
+                        Plan gesprek
+                      </a>
+                    </Button>
+                  </SheetClose>
+                </SheetFooter>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </header>
