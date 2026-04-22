@@ -96,8 +96,8 @@ const SiteLayout = () => {
               <a className="flex items-center gap-3 transition-colors hover:text-accent" href="mailto:info@viavastgoed.com">
                 <Mail className="h-4 w-4" /> info@viavastgoed.com
               </a>
-              <a className="flex items-center gap-3 transition-colors hover:text-accent" href="tel:+31200000000">
-                <Phone className="h-4 w-4" /> +31 20 000 0000
+              <a className="flex items-center gap-3 transition-colors hover:text-accent" href="tel:+31853035281">
+                <Phone className="h-4 w-4" /> +31 85 303 52 81
               </a>
             </div>
           </div>
