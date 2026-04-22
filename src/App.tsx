@@ -11,6 +11,8 @@ import NotFound from "./pages/NotFound.tsx";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import QuizPage from "./pages/QuizPage";
 import QuizResultPage from "./pages/QuizResultPage";
+import SpanjePage from "./pages/SpanjePage";
+import DubaiPage from "./pages/DubaiPage";
 
 const queryClient = new QueryClient();
 
@@ -26,8 +28,8 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/quiz" element={<QuizPage />} />
             <Route path="/quiz/resultaat" element={<QuizResultPage />} />
-            <Route path="/spanje" element={<PlaceholderPage title="Spanje" />} />
-            <Route path="/dubai" element={<PlaceholderPage title="Dubai" />} />
+            <Route path="/spanje" element={<SpanjePage />} />
+            <Route path="/dubai" element={<DubaiPage />} />
             <Route path="/plan-gesprek" element={<PlaceholderPage title="Plan gesprek" />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/registreer" element={<RegisterPage />} />
