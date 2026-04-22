@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Building2, Compass, FileCheck2, Handshake, MapPinned } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PLAN_GESPREK_URL } from "@/lib/links";
 
 const markets = [
   {
@@ -36,7 +37,7 @@ const Index = () => {
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                <Link to="/plan-gesprek">Plan een vrijblijvend gesprek <ArrowRight /></Link>
+                <a href={PLAN_GESPREK_URL} target="_blank" rel="noreferrer">Plan een vrijblijvend gesprek <ArrowRight /></a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
                 <Link to="/quiz">Start oriëntatie</Link>
@@ -119,7 +120,7 @@ const Index = () => {
         <div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 sm:flex-row sm:items-center">
           <h2 className="max-w-2xl text-3xl font-semibold text-primary">Wil je rustig verkennen wat past?</h2>
           <Button asChild size="lg">
-            <Link to="/plan-gesprek">Plan een vrijblijvend gesprek</Link>
+            <a href={PLAN_GESPREK_URL} target="_blank" rel="noreferrer">Plan een vrijblijvend gesprek</a>
           </Button>
         </div>
       </section>
