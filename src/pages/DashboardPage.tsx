@@ -18,6 +18,11 @@ const getQuizAnswers = (quizData: unknown): QuizAnswers | null => {
   return (quizData as { answers?: QuizAnswers }).answers ?? null;
 };
 
+const getProfileTitle = (quizData: unknown): string | null => {
+  if (!quizData || typeof quizData !== "object" || !("result" in quizData)) return null;
+  return (quizData as { result?: { profile?: string } }).result?.profile ?? null;
+};
+
 const marketCopy = {
   spanje: { title: "Spanje", text: "Een volwassen markt met sterke kustvraag en een overzichtelijk aankoopproces.", href: "/spanje" },
   dubai: { title: "Dubai", text: "Een internationale markt met off-plan aanbod, gespreide betalingen en rendementsfocus.", href: "/dubai" },
@@ -29,6 +34,7 @@ const DashboardPage = () => {
   const { user, role } = useAuth();
   const { profile, loading } = useProfile();
   const answers = getQuizAnswers(profile?.quiz_data);
+  const profileTitle = getProfileTitle(profile?.quiz_data);
   const isClient = role === "client";
 
   const documentsQuery = useQuery({
@@ -69,10 +75,11 @@ const DashboardPage = () => {
             <CardContent>
               {answers ? (
                 <>
+                  {profileTitle && <p className="mb-5 text-lg font-semibold text-primary">{profileTitle}</p>}
                   <dl className="grid gap-3 text-sm sm:grid-cols-2">
                     {quizQuestions.map((question) => <div key={question.id}><dt className="font-semibold text-primary">{question.label}</dt><dd className="text-muted-foreground">{answers[question.id]}</dd></div>)}
                   </dl>
-                  <Button asChild variant="outline" className="mt-6"><Link to="/quiz">Bewerk antwoorden</Link></Button>
+                  <Button asChild variant="outline" className="mt-6"><Link to="/quiz" state={{ answers }}>Bewerk antwoorden</Link></Button>
                 </>
               ) : (
                 <div><p className="text-muted-foreground">Je hebt de oriëntatie nog niet ingevuld.</p><Button asChild className="mt-6"><Link to="/quiz">Start oriëntatie</Link></Button></div>
@@ -100,7 +107,7 @@ const DashboardPage = () => {
             </CardContent>
           </Card>
 
-          {isClient && <Card className="rounded-sm lg:col-span-2"><CardHeader><CardTitle>Mijn traject</CardTitle></CardHeader><CardContent>{profile?.traject_stage ? <><h3 className="mb-6 text-lg font-semibold text-primary">Waar sta je nu?</h3><div className="grid grid-cols-4 gap-2">{trajectSteps.map((label, index) => { const step = index + 1; const active = profile.traject_stage === step; const done = profile.traject_stage! > step; return <div key={label} className="relative text-center"><div className={cn("mx-auto flex h-10 w-10 items-center justify-center rounded-full border text-sm font-semibold", active && "border-primary bg-primary text-primary-foreground ring-4 ring-ring", done && "border-accent bg-accent text-accent-foreground", !active && !done && "border-border bg-background text-muted-foreground")}>{step}</div><p className="mt-3 text-xs font-medium text-primary sm:text-sm">{label}</p></div>; })}</div></> : <p className="text-muted-foreground">Je traject wordt nog opgezet door VIA.</p>}</CardContent></Card>}
+          {isClient && <Card className="rounded-sm lg:col-span-2"><CardHeader><CardTitle>Mijn traject</CardTitle></CardHeader><CardContent>{profile?.traject_stage ? <><h3 className="mb-6 text-lg font-semibold text-primary">Waar sta je nu?</h3><div className="grid grid-cols-4 gap-2">{trajectSteps.map((label, index) => { const step = index + 1; const active = profile.traject_stage === step; const done = profile.traject_stage! > step; return <div key={label} className="relative text-center before:absolute before:left-0 before:right-0 before:top-5 before:-z-0 before:h-px before:bg-border first:before:left-1/2 last:before:right-1/2"><div className={cn("relative z-10 mx-auto flex h-10 w-10 items-center justify-center rounded-full border text-sm font-semibold", active && "border-primary bg-primary text-primary-foreground ring-4 ring-ring", done && "border-accent bg-accent text-accent-foreground", !active && !done && "border-border bg-background text-muted-foreground")}>{step}</div><p className="mt-3 text-xs font-medium text-primary sm:text-sm">{label}</p></div>; })}</div></> : <p className="text-muted-foreground">Je traject wordt nog opgezet door VIA.</p>}</CardContent></Card>}
 
           {isClient && <Card className="rounded-sm"><CardHeader><CardTitle>Volgende actie</CardTitle></CardHeader><CardContent>{profile?.next_action || profile?.next_action_date ? <div className="space-y-2"><p className="text-primary">{profile.next_action}</p><p className="text-sm text-muted-foreground">{formatDate(profile.next_action_date)}</p></div> : <p className="text-muted-foreground">Nog geen actie gepland.</p>}</CardContent></Card>}
 
